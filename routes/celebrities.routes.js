@@ -21,13 +21,30 @@ router.post("/create", async (req, res, next) => {
       catchPhrase,
     });
 
-    res.redirect("/celebrities");
+    res.redirect("/");
 
   } catch (error) {
     next(error);
   }
 
 });
+
+router.get("/celebrities", async (req, res, next) => {
+  
+try {
+  const celebritiesList = await Celebrity.find()
+  res.render("celebrities/celebrities.hbs", {
+  celebritiesList 
+  })
+}catch(error) {
+  next(error)
+} 
+})
+
+
+
+
+
 
 
 module.exports = router;

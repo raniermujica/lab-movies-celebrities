@@ -10,10 +10,10 @@ router.get("/create", (req, res, next) => {
 
 // POST "/celebrities/create"
 router.post("/create", async (req, res, next) => {
-  const { name, occupation, catchPhrase } = req.body;
+  const { name, occupation, catchPhrase } = req.body
 
 
-  
+
   try {
     await Celebrity.create({
       name,
@@ -21,7 +21,7 @@ router.post("/create", async (req, res, next) => {
       catchPhrase,
     });
 
-    res.redirect("/");
+    res.redirect("/celebrities");
 
   } catch (error) {
     next(error);
@@ -29,13 +29,19 @@ router.post("/create", async (req, res, next) => {
 
 });
 
-router.get("/celebrities", async (req, res, next) => {
+//! Ruta para mostrar lista de celebridades
+// GET "/celebrities"
+
+router.get("/", async (req, res, next) => {
   
 try {
   const celebritiesList = await Celebrity.find()
+  
   res.render("celebrities/celebrities.hbs", {
   celebritiesList 
+
   })
+  console.log(celebritiesList)
 }catch(error) {
   next(error)
 } 

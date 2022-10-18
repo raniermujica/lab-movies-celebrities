@@ -12,9 +12,7 @@ router.get("/create", (req, res, next) => {
 router.post("/create", async (req, res, next) => {
   const { name, occupation, catchPhrase } = req.body
 
-
-
-  try {
+ try {
     await Celebrity.create({
       name,
       occupation,
@@ -26,6 +24,9 @@ router.post("/create", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+
+
+ 
 
 });
 

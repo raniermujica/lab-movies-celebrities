@@ -72,7 +72,47 @@ router.post("/:id/delete", async (req, res, next) => {
     next(err);
   }
 });
+//10
+//Ruta para editar películas
+router.get("/:movieId/edit", (req, res, next) => {
+  const { movieId } = req.params
 
+  Movie.findById(movieId)
+    .populate("cast")
+    .then((response) => {
+      console.log(response);
+      //  console.log(".cast", response.cast)
+      res.render("movies/edit-movie.hbs", {
+        details: response,
+      });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 
+//recibir la data
+router.post("/:movieId/edit", (req, res, next) => {
+  const { movieId } = req.params;
+
+  const { title, genre, plot, cast } = req.body;
+  console.log(req.body);
+
+  const movieUpdate = {
+    title,
+    genre,
+    plot,
+    cast
+  };
+
+  Movie.findByIdAndUpdate(movieId, movieUpdate)
+    .then((response) => {
+        console.log(response)
+      res.redirect(`/movies/${movieId}/details`);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 
 module.exports = router;

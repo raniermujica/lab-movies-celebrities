@@ -22,11 +22,9 @@ router.post("/create", async (req, res, next) => {
     res.redirect("/celebrities");
 
   } catch (error) {
-    next(error);
+    res.render("celebrities/new-celebrity.hbs")
   }
 
-
- 
 
 });
 
